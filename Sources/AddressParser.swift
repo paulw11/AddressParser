@@ -52,18 +52,10 @@ extension Address: Equatable {
     }
 }
 
-extension Entry: Hashable {
+extension Address: Hashable {
     public func hash(into hasher: inout Hasher) {
-        switch (self) {
-        
-        case .mail(let address):
-            hasher.combine(address)
-            
-        case .group(let addresses):
-            for address in addresses {
-                hasher.combine(address)
-            }
-        }
+        hasher.combine(self.name)
+        hasher.combine(self.entry)
     }
 }
 
