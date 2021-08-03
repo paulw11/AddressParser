@@ -52,6 +52,21 @@ extension Address: Equatable {
     }
 }
 
+extension Entry: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        switch (self) {
+        
+        case .mail(let address):
+            hasher.combine(address)
+            
+        case .group(let addresses):
+            for address in addresses {
+                hasher.combine(address)
+            }
+        }
+    }
+}
+
 public indirect enum Entry {
     case mail(String)
     case group([Address])
@@ -63,6 +78,21 @@ extension Entry: Equatable {
         case (.mail(let address1), .mail(let address2)): return address1 == address2
         case (.group(let addresses1), .group(let addresses2)): return addresses1 == addresses2
         default: return false
+        }
+    }
+}
+
+extension Entry: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        switch (self) {
+        
+        case .mail(let address):
+            hasher.combine(address)
+            
+        case .group(let addresses):
+            for address in addresses {
+                hasher.combine(address)
+            }
         }
     }
 }
